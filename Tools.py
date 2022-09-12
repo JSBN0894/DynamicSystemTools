@@ -1,5 +1,20 @@
 import sympy as sym
 
+"""
+Ejemplo:
+    import sympy as sym
+    import DiscreteTolls as EL
+    m,M,x,v_x,a_x,theta,omega,alpha,l,g,u,delta = sym.symbols("m,M,x,v_x,a_x,theta,omega,alpha,l,g,u,delta")
+    T = 1/2*M*v_x**2 + 1/2*m*((v_x + l*omega*sym.cos(theta))**2 + (l*omega*sym.sin(theta))**2)
+    V = -m*l*g*sym.cos(theta)
+    L = T-V
+
+    Sol = EL.Eu_La(L,[x,v_x,theta,omega],[v_x,a_x,omega,alpha],[u-delta*v_x,0])
+    print(Sol)
+    >>[Eq(-delta*v_x + u, 1.0*a_x*(M + m) + 1.0*alpha*l*m*cos(theta) - 1.0*l*m*omega**2*sin(theta)), Eq(l*m*(1.0*a_x*cos(theta) + alpha*l + g*sin(theta)), 0)]
+    
+"""
+
 def DisEuLa(L,X,X_dot,F):
     """
     DisEuLa
@@ -12,17 +27,6 @@ def DisEuLa(L,X,X_dot,F):
     X_dot --> lista con las variables de las derivadas del vector de estado
     F ---> Lista con las fuerzas aplicadas a cada grado de libertad
 
-    Ejemplo:
-    import sympy as sym
-    import DiscreteTolls as EL
-    m,M,x,v_x,a_x,theta,omega,alpha,l,g,u,delta = sym.symbols("m,M,x,v_x,a_x,theta,omega,alpha,l,g,u,delta")
-    T = 1/2*M*v_x**2 + 1/2*m*((v_x + l*omega*sym.cos(theta))**2 + (l*omega*sym.sin(theta))**2)
-    V = -m*l*g*sym.cos(theta)
-    L = T-V
-
-    Sol = EL.Eu_La(L,[x,v_x,theta,omega],[v_x,a_x,omega,alpha],[u-delta*v_x,0])
-    print(Sol)
-    >>[Eq(-delta*v_x + u, 1.0*a_x*(M + m) + 1.0*alpha*l*m*cos(theta) - 1.0*l*m*omega**2*sin(theta)), Eq(l*m*(1.0*a_x*cos(theta) + alpha*l + g*sin(theta)), 0)]
     """
     L_M = sym.Matrix([L])
     X_M = sym.Matrix([X])
@@ -43,7 +47,7 @@ def DisEuLa(L,X,X_dot,F):
 
 def linearize_fuction(f,X,X0):
     """
-    Esta función linealiza haciendo uso de las series de tylor
+    Esta función linealiza ecuaciones diferenciales haciendo uso de las series de tylor
 
     Parametros
     ----------
@@ -63,6 +67,18 @@ def linearize_fuction(f,X,X0):
     return y
 
 def linearize_system(sis,X,X0):
+    """
+    Esta función linealiza sistemas de ecuaciones diferenciales
+    haciendo uso de series de tylor
+
+    Parametros
+    ----------
+    sis -> diccionario con las ecuaciones diferenciales
+        Ejemplo : {z: x**2 + y**2, h: x**3+y}
+    X --> lista  de variables 
+    X0 --> lista de valores del punto de linealización.
+    
+    """
     sis_lin = {}
     for i in sis.keys():
         sis_lin.__setitem__(i,linearize_fuction(sis[i],X,X0))
