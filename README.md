@@ -11,11 +11,13 @@ Este proyecto pretende ser una herramienta para los estudiantes de sistemas din√
 
 # Notebook de ejemplo.
 
+**Pendulo triple**
+---
+https://colab.research.google.com/drive/1koGp1FewV6b-2S55NEMY2o4UDVNqaNss?usp=sharing
+
 **Carro con pendulo**
 ---
 https://colab.research.google.com/drive/1fiWsbvmnsHUiTBMhO7WPYnkWlGkoJW-l?usp=sharing
 
-**Pendulo triple**
----
-https://colab.research.google.com/drive/1koGp1FewV6b-2S55NEMY2o4UDVNqaNss?usp=sharing
+
 
